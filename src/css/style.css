@@ -1,0 +1,200 @@
+body, ul    {
+    margin: 0;
+    padding: 0;
+    background-color: #E5E5E5;
+}
+
+.chat-container     {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-body      {
+    box-sizing: border-box;
+    width: 320px;
+    height: 533px;
+    border: 1px solid black;
+    background-color: white;
+    padding: 8px;
+}
+
+.navbar     {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.settings   {
+    width: 98px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.exit   {
+   width: 66px;
+   height: 32px;
+   border: 1px solid black;
+}
+
+.settings button, .exit button    {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: none;
+    text-align: center;
+}
+
+.settings button:hover, .exit button:hover, .button-send-message button:hover  {
+    background-color: black;
+    color: white;
+}
+
+.messages-body      {
+    width: 304px;
+    height: 437px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin-top: 8px;
+    padding: 8px;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+.message-send-body    {
+    box-sizing: border-box;
+    margin-top: 8px;
+    width: 267px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.button-send-message    {
+    box-sizing: border-box;
+    margin-top: 8px;
+    border: 1px solid black;
+    width: 29px;
+    height: 32px;
+}
+
+.button-send-message button     {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #FFFFFF;
+}
+
+.message-send-body input    {
+    width: 90%;
+    height: 90%;
+    border: none;
+    background-color: white;
+}
+
+.message-send-container     {
+    display: flex;
+}
+
+.message-block      {
+    display: flex;
+    justify-content: right;
+}
+
+.message    {
+    margin-top: 8px;
+    background-color: #F6F6F6;
+    padding: 8px;
+}
+
+.message-from   {
+    margin-top: 8px;
+    background-color: #E5E5E5;
+    padding: 8px;
+}
+
+.date   {
+    display: flex;
+    justify-content: right;
+    color: #333333;
+}
+
+.message-from-block     {
+    display: flex;
+    justify-content: left;
+}
+
+.settings-popup-container   {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+
+.settings-popup-body    {
+    width: 320px;
+    height: 533px;
+    background-color: #535353;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-popup     {
+    width: 273px;
+    height: 319px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+.navbar-settings    {
+    display: flex;
+    justify-content: space-between;
+}
+
+.settings-name-text     {
+    margin-top: 8px;
+}
+
+.settings-name-set-container      {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-set-body      {
+    width: 207px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.name-set-body input   {
+    width: 90%;
+    height: 90%;
+    background-color: white;
+    border: none;
+}
+
+.button-set-name    {
+    width: 30px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.button-set-name button     {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: none;
+}
+
+#message-send-form  {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    
+    <main>
+        <section>
+            <div class="chat-container">
+
+                <div class="chat-body">
+                    
+                    <div class="navbar">
+
+                        <div class="settings">
+                            <button id="settings-button">Settings</button>
+                        </div>
+
+                        <div class="exit">
+                            <button>Exit</button>
+                        </div>
+
+                    </div>
+
+                    <div class="messages-body">
+
+                        <template id="send-message-tmp">
+                            <div class="message-block">
+                                <div class="message">
+                                    <div class="text">
+                                        Me: Good morning!
+                                    </div>
+                                    <div class="date">
+                                        18:45
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="message-block">
+                            <div class="message">
+                                <div class="text">
+                                    Me: Good morning!
+                                </div>
+                                <div class="date">
+                                    18:45
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="message-from-block">
+                            <div class="message-from">
+                                <div class="text">
+                                    My interlocutor: Good morning!
+                                </div>
+                                <div class="date">
+                                    18:45
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="message-from-block">
+                            <div class="message-from">
+                                <div class="text">
+                                    My interlocutor: А это второе и, кажется, оно очень длинное, чтобы 
+                                    поместиться на одной строке
+                                </div>
+                                <div class="date">
+                                    18:45
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="message-block">
+                            <div class="message">
+                                <div class="text">
+                                    Me: Good morning!
+                                </div>
+                                <div class="date">
+                                    18:45
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+    
+                    <div class="message-send-container">
+
+                        <form action="" id="message-send-form">
+                        <div class="message-send-body">
+                            <input type="text" name="" id="input-message" placeholder="message..">
+                        </div>
+    
+                        <div class="button-send-message">
+                            <button>-></button>
+                        </div>
+                    </form>
+    
+                    </div>
+
+
+                    
+
+                </div>
+
+                <div class="settings-popup-container">
+                    <div class="settings-popup-body">
+                        <div class="settings-popup">
+                            
+                            <div class="navbar-settings">
+                                <div class="settings-text">
+                                    Настройки
+                                </div>
+
+                                <div class="settings-close-button">
+                                    <button id="settings-close-button">x</button>
+                                </div>
+                            </div>
+
+                            <div class="settings-name-text">
+                                Имя в чате
+                            </div>
+
+                            <div class="settings-name-set-container">
+                        
+                                <div class="name-set-body">
+                                    <input type="text" name="" id="" placeholder="Steve">
+                                </div>
+            
+                                <div class="button-set-name">
+                                    <button>-></button>
+                                </div>
+            
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="./js/index.js"></script>
+</body>
+</html>
