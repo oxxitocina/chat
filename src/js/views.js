@@ -4,6 +4,7 @@ const UI_ELEMENTS = {
     SETTINGS_CLOSE_BTN: document.querySelector('#settings-close-button'),
     SETTINGS_FORM: document.querySelector('#settings-form'),
     SETTINGS_INPUT: document.querySelector('#input-name'),
+    SETTINGS_GET_NAME_BUTTON: document.querySelector('#get-name-button'),
 
     MESSAGE_SEND_FORM: document.querySelector('#message-send-form'),
     MESSAGE_SEND_TEMPLATE: document.querySelector('#send-message-tmp'),

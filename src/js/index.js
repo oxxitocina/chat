@@ -1,8 +1,6 @@
 import { UI_ELEMENTS } from "./views.js";
 import { SERVER_DATA } from "./server.js";
-// import Cookies from 'js-cookie'
-
-// Cookies.set('foo', 'bar')
+import Cookies from 'js-cookie'
 
 
 UI_ELEMENTS.SETTINGS_BTN.addEventListener('click', function()   {
@@ -32,6 +30,9 @@ UI_ELEMENTS.CONFIRMATION_FORM.addEventListener('submit', function(event) {
 UI_ELEMENTS.SETTINGS_FORM.addEventListener('submit', function(event) {
     event.preventDefault();
     set_name();
+})
+UI_ELEMENTS.SETTINGS_GET_NAME_BUTTON.addEventListener('click', function()   {
+    get_name()
 })
 
 function show_popup(page)   {
@@ -90,15 +91,9 @@ async function authorization()  {
 
 function confirmation()   {
     let code = UI_ELEMENTS.CONFIRMATION_INPUT_CODE.value;
-    document.cookie = encodeURIComponent('token') + '=' + encodeURIComponent(code);
+    console.log(code)
+    Cookies.set('token', code)
 }
-
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
 
 async function set_name()   {
     let user = {
@@ -106,15 +101,13 @@ async function set_name()   {
     }
 
     user.name = UI_ELEMENTS.SETTINGS_INPUT.value;
-
-    let token = getCookie('token');
-    console.log(token)
+    console.log(user)
 
     let response = await fetch(SERVER_DATA.ENDPOINT, {
         method: 'PATCH',
         headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Bearer ${token}`
+            'Authorization': `Bearer ${Cookies.get('token')}`,
+            'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(user)
     });
@@ -122,3 +115,17 @@ async function set_name()   {
     let result = await response.json();
     console.log(result);
 }
+
+async function get_name()   {
+    console.log('Start')
+    let response = await fetch(`${SERVER_DATA.ENDPOINT}/me`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('token')}`,
+        },
+    });
+
+    let result = await response.json();
+    console.log(result);
+}
+
