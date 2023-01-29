@@ -104,12 +104,9 @@
     
                     </div>
 
-
-                    
-
                 </div>
 
-                <div class="settings-popup-container">
+                <div class="settings-popup-container popup-hide">
                     <div class="settings-popup-body">
                         <div class="settings-popup">
                             
@@ -129,13 +126,87 @@
 
                             <div class="settings-name-set-container">
                         
-                                <div class="name-set-body">
-                                    <input type="text" name="" id="" placeholder="Steve">
-                                </div>
+                                <form action="" id="settings-form">
+                                    <div class="name-set-body">
+                                        <input type="text" name="" id="input-name" placeholder="Steve">
+                                    </div>
+                
+                                    <div class="button-set-name">
+                                        <button>-></button>
+                                    </div>
+                                </form>
             
-                                <div class="button-set-name">
-                                    <button>-></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="confirmation-popup-container">
+                    <div class="confirmation-popup-body">
+                        <div class="confirmation-popup">
+                            
+                            <div class="navbar-confirmation">
+                                <div class="confirmation-text">
+                                    Подтверждение
                                 </div>
+
+                                <div class="confirmation-close-button">
+                                    <button id="confirmation-close-button">x</button>
+                                </div>
+                            </div>
+
+                            <div class="confirmation-name-set-container">
+
+                                <div class="code-text">
+                                    Код:
+                                </div>
+                        
+                                <form action="" id="confirmation-form">
+                                    <div class="code-get-body">
+                                        <input type="text" name="" id="input-code" placeholder="">
+                                    </div>
+                
+                                    <div class="button-get-code">
+                                        <button>Войти</button>
+                                    </div>
+                                </form>
+            
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="authorization-popup-container">
+                    <div class="authorization-popup-body">
+                        <div class="authorization-popup">
+                            
+                            <div class="navbar-authorization">
+                                <div class="authorization-text">
+                                    Авторизация
+                                </div>
+
+                                <div class="authorization-close-button">
+                                    <button id="authorization-close-button">x</button>
+                                </div>
+                            </div>
+
+                            <div class="authorization-name-set-container">
+
+                                <div class="email-text">
+                                    Почта:
+                                </div>
+                        
+                                <form action="POST" id="send-email">
+                                    <div class="email-send-body">
+                                        <input type="text" name="" id="input-send-email" placeholder="">
+                                    </div>
+                
+                                    <div class="button-send-email">
+                                        <button>Получить код</button>
+                                    </div>
+                                </form>
             
                             </div>
 
@@ -147,6 +218,6 @@
         </section>
     </main>
 
-    <script type="module" src="./js/index.js"></script>
+    <script defer type="module" src="./js/index.js"></script>
 </body>
 </html>
