@@ -59,13 +59,13 @@ body, ul    {
     margin-top: 8px;
     padding: 8px;
     overflow-y:scroll;
-    /* -ms-overflow-style: none; 
-    scrollbar-width: none;  */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
 
-/* .messages-body::-webkit-scrollbar {
+.messages-body::-webkit-scrollbar {
     display: none;
-  } */
+  }
 
 .message-send-body    {
     box-sizing: border-box;

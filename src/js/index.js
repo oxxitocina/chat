@@ -34,6 +34,9 @@ UI_ELEMENTS.SETTINGS_FORM.addEventListener('submit', function(event) {
 UI_ELEMENTS.SETTINGS_GET_NAME_BUTTON.addEventListener('click', function()   {
     get_name()
 })
+UI_ELEMENTS.SETTINGS_GET_CHAT_HISTORY.addEventListener('click', function()  {
+    get_messages()
+})
 
 function show_popup(page)   {
    page.classList.remove('popup-hide')
@@ -43,18 +46,21 @@ function close_popup(page)    {
     page.classList.add('popup-hide')
 }
 
-function send_message()     {
+function send_message(...messages)     {
+
     let message = UI_ELEMENTS.MESSAGE_INPUT.value;
     let date_now = new Date();
     let hoursAndMinutes = date_now.getHours() + ':' + date_now.getMinutes();
 
+    if(messages.length === 0)    {
         if(message.length === 0)    {
             return 0;
         }
+    }
 
     let clon = UI_ELEMENTS.MESSAGE_SEND_TEMPLATE.content.cloneNode(true);
-    clon.querySelector('.text').textContent = "Me: " + message;
-    clon.querySelector('.date').textContent = hoursAndMinutes;
+    clon.querySelector('.text').textContent = ((messages[0].text) ?? ("Me: " + message)); 
+    clon.querySelector('.date').textContent = ((messages[0].createdAt) ?? (hoursAndMinutes));
     UI_ELEMENTS.MESSAGES_PAGE.append(clon);
 }
 
@@ -68,7 +74,7 @@ async function authorization()  {
 
     try   {
 
-        let response = await fetch(SERVER_DATA.ENDPOINT, {
+        let response = await fetch(SERVER_DATA.SERVER_URL, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -103,7 +109,7 @@ async function set_name()   {
     user.name = UI_ELEMENTS.SETTINGS_INPUT.value;
     console.log(user)
 
-    let response = await fetch(SERVER_DATA.ENDPOINT, {
+    let response = await fetch(SERVER_DATA.SERVER_URL, {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${Cookies.get('token')}`,
@@ -118,7 +124,7 @@ async function set_name()   {
 
 async function get_name()   {
     console.log('Start')
-    let response = await fetch(`${SERVER_DATA.ENDPOINT}/me`, {
+    let response = await fetch(`${SERVER_DATA.SERVER_URL}/me`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${Cookies.get('token')}`,
@@ -127,5 +133,21 @@ async function get_name()   {
 
     let result = await response.json();
     console.log(result);
+}
+
+async function get_messages()   {
+    let response = await fetch('https://edu.strada.one/api/messages/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('token')}`,
+        }
+    });
+
+    let result = await response.json();
+
+    for(let i = 0; i < result.messages.length; i++)   {
+        send_message(result.messages[i])
+    }
+    
 }
 
