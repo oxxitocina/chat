@@ -17,7 +17,7 @@ UI_ELEMENTS.CONFIRMATION_CLOSE_BUTTON.addEventListener('click', function()  {
 })
 UI_ELEMENTS.MESSAGE_SEND_FORM.addEventListener('submit', function(event)  {
     event.preventDefault();
-    send_message();
+    sendMessage();
 })
 UI_ELEMENTS.FORM_SEND_EMAIL.addEventListener('submit', function(event)  {
     event.preventDefault();
@@ -46,31 +46,32 @@ function close_popup(page)    {
     page.classList.add('popup-hide')
 }
 
-function send_message(...messages)     {
-
+function sendMessage()  {
     let text = UI_ELEMENTS.MESSAGE_INPUT.value;
-    let date_now = new Date();
-    let hoursAndMinutes = date_now.getHours() + ':' + date_now.getMinutes();
-
-    if(messages.length === 0)    {
-        if(text.length === 0)    {
-            return 0;
-        }
-    }
-
-    let clon = UI_ELEMENTS.MESSAGE_SEND_TEMPLATE.content.cloneNode(true);
 
     SERVER_DATA.SOCKET.send(JSON.stringify({text}));
-    SERVER_DATA.SOCKET.onmessage = function(event) { console.log(event.data) };
+    SERVER_DATA.SOCKET.onmessage = function(event) { 
+        get_messages();
+    };
+}
 
-    clon.querySelector('.text').textContent = ((messages[0].text) ?? ("Me: " + text)); 
-    clon.querySelector('.date').textContent = ((messages[0].createdAt) ?? (hoursAndMinutes));
+function renderMessages(...messages)     {
+    let clon = UI_ELEMENTS.MESSAGE_SEND_TEMPLATE.content.cloneNode(true);
+    let clonGetMessage = UI_ELEMENTS.MESSAGE_GET_TEMPLATE.content.cloneNode(true);
+
+    if(Cookies.get('email') === messages[0].user.email)    {
+        clon.querySelector('.text').textContent = messages[0].text; 
+        clon.querySelector('.date').textContent = messages[0].createdAt;
+        UI_ELEMENTS.MESSAGES_PAGE.append(clon);
+    }else{
+        clonGetMessage.querySelector('.text').textContent = messages[0].text; 
+        clonGetMessage.querySelector('.date').textContent = messages[0].createdAt; 
+        UI_ELEMENTS.MESSAGES_PAGE.append(clonGetMessage);
+    }
     
-    UI_ELEMENTS.MESSAGES_PAGE.append(clon);
 }
 
 async function authorization()  {
-
     let user = {
         email: null,
     };
@@ -102,8 +103,16 @@ async function authorization()  {
 
 function confirmation()   {
     let code = UI_ELEMENTS.CONFIRMATION_INPUT_CODE.value;
-    console.log(code)
     Cookies.set('token', code)
+
+    let user;
+
+    async function setCookiesEmail()    {
+        user = await get_name();
+        Cookies.set('email', user.email)
+    }
+
+    setCookiesEmail(); 
 }
 
 async function set_name()   {
@@ -112,7 +121,6 @@ async function set_name()   {
     }
 
     user.name = UI_ELEMENTS.SETTINGS_INPUT.value;
-    console.log(user)
 
     let response = await fetch(SERVER_DATA.SERVER_URL, {
         method: 'PATCH',
@@ -128,7 +136,6 @@ async function set_name()   {
 }
 
 async function get_name()   {
-    console.log('Start')
     let response = await fetch(`${SERVER_DATA.SERVER_URL}/me`, {
         method: 'GET',
         headers: {
@@ -137,7 +144,7 @@ async function get_name()   {
     });
 
     let result = await response.json();
-    console.log(result);
+    return result;
 }
 
 async function get_messages()   {
@@ -149,9 +156,12 @@ async function get_messages()   {
     });
 
     let result = await response.json();
+    console.log(result)
+
+    UI_ELEMENTS.MESSAGES_PAGE.querySelectorAll('div').remove;
 
     for(let i = 0; i < result.messages.length; i++)   {
-        send_message(result.messages[i])
+        renderMessages(result.messages[i])
     }
     
 }

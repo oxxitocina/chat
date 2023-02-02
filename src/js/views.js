@@ -9,6 +9,7 @@ const UI_ELEMENTS = {
 
     MESSAGE_SEND_FORM: document.querySelector('#message-send-form'),
     MESSAGE_SEND_TEMPLATE: document.querySelector('#send-message-tmp'),
+    MESSAGE_GET_TEMPLATE: document.querySelector('#get-message-tmp'),
     MESSAGES_PAGE: document.querySelector('.messages-body'),
     MESSAGE_INPUT: document.querySelector('#input-message'),
 
