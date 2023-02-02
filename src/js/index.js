@@ -48,19 +48,24 @@ function close_popup(page)    {
 
 function send_message(...messages)     {
 
-    let message = UI_ELEMENTS.MESSAGE_INPUT.value;
+    let text = UI_ELEMENTS.MESSAGE_INPUT.value;
     let date_now = new Date();
     let hoursAndMinutes = date_now.getHours() + ':' + date_now.getMinutes();
 
     if(messages.length === 0)    {
-        if(message.length === 0)    {
+        if(text.length === 0)    {
             return 0;
         }
     }
 
     let clon = UI_ELEMENTS.MESSAGE_SEND_TEMPLATE.content.cloneNode(true);
-    clon.querySelector('.text').textContent = ((messages[0].text) ?? ("Me: " + message)); 
+
+    SERVER_DATA.SOCKET.send(JSON.stringify({text}));
+    SERVER_DATA.SOCKET.onmessage = function(event) { console.log(event.data) };
+
+    clon.querySelector('.text').textContent = ((messages[0].text) ?? ("Me: " + text)); 
     clon.querySelector('.date').textContent = ((messages[0].createdAt) ?? (hoursAndMinutes));
+    
     UI_ELEMENTS.MESSAGES_PAGE.append(clon);
 }
 
