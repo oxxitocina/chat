@@ -12,8 +12,12 @@ UI_ELEMENTS.SETTINGS_CLOSE_BTN.addEventListener('click', function()  {
 UI_ELEMENTS.AUTHORIZATION_CLOSE_BUTTON.addEventListener('click', function() {
     close_popup(UI_ELEMENTS.AUTHORIZATION_PAGE)
 });
-UI_ELEMENTS.CONFIRMATION_CLOSE_BUTTON.addEventListener('click', function()  {
+UI_ELEMENTS.CONFIRMATION_CLOSE_BUTTON.addEventListener('click', async function()  {
     close_popup(UI_ELEMENTS.CONFIRMATION_PAGE)
+    await save_messages();
+    await addMessages();
+    UI_ELEMENTS.MESSAGES_PAGE.append(container)
+    UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, UI_ELEMENTS.MESSAGES_PAGE.scrollHeight)
 })
 UI_ELEMENTS.MESSAGE_SEND_FORM.addEventListener('submit', function(event)  {
     event.preventDefault();
@@ -35,7 +39,16 @@ UI_ELEMENTS.SETTINGS_GET_NAME_BUTTON.addEventListener('click', function()   {
     get_name()
 })
 UI_ELEMENTS.SETTINGS_GET_CHAT_HISTORY.addEventListener('click', function()  {
-    get_messages()
+    save_messages()
+})
+UI_ELEMENTS.GET_POSITION_BUTTON.addEventListener('click', function()    {
+    checkPosition()
+})
+UI_ELEMENTS.ADD_MESSAGES.addEventListener('click', function()   {
+    addMessages();
+})
+UI_ELEMENTS.MESSAGES_PAGE.addEventListener('scroll', function() {
+    checkPosition();
 })
 
 function show_popup(page)   {
@@ -50,23 +63,28 @@ function sendMessage()  {
     let text = UI_ELEMENTS.MESSAGE_INPUT.value;
 
     SERVER_DATA.SOCKET.send(JSON.stringify({text}));
-    SERVER_DATA.SOCKET.onmessage = function(event) { 
-        get_messages();
+    
+    SERVER_DATA.SOCKET.onmessage = async function(event) { 
+        deleteMessages()
+        await save_messages();
+        await addMessages();
+        UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, UI_ELEMENTS.MESSAGES_PAGE.scrollHeight)
     };
 }
 
-function renderMessages(...messages)     {
+async function renderMessages(...messages)     {
     let clon = UI_ELEMENTS.MESSAGE_SEND_TEMPLATE.content.cloneNode(true);
     let clonGetMessage = UI_ELEMENTS.MESSAGE_GET_TEMPLATE.content.cloneNode(true);
+    let container = document.querySelector('.messages-main-container');
 
     if(Cookies.get('email') === messages[0].user.email)    {
         clon.querySelector('.text').textContent = messages[0].text; 
         clon.querySelector('.date').textContent = messages[0].createdAt;
-        UI_ELEMENTS.MESSAGES_PAGE.append(clon);
+        container.prepend(clon);
     }else{
         clonGetMessage.querySelector('.text').textContent = messages[0].text; 
         clonGetMessage.querySelector('.date').textContent = messages[0].createdAt; 
-        UI_ELEMENTS.MESSAGES_PAGE.append(clonGetMessage);
+        container.prepend(clonGetMessage);
     }
     
 }
@@ -132,7 +150,6 @@ async function set_name()   {
     });
 
     let result = await response.json();
-    console.log(result);
 }
 
 async function get_name()   {
@@ -147,6 +164,17 @@ async function get_name()   {
     return result;
 }
 
+const messages = [];
+
+async function addMessages()  {
+
+    for(let i = 0; i < 20; i++)   {
+        renderMessages(messages[i])
+    }
+    messages.splice(0, 20);
+    
+}
+
 async function get_messages()   {
     let response = await fetch('https://edu.strada.one/api/messages/', {
         method: 'GET',
@@ -156,13 +184,36 @@ async function get_messages()   {
     });
 
     let result = await response.json();
-    console.log(result)
+    return result;
+}
 
-    UI_ELEMENTS.MESSAGES_PAGE.querySelectorAll('div').remove;
+async function save_messages()    {
+    let result = await get_messages();
+
+    messages.splice(0, messages.length);
 
     for(let i = 0; i < result.messages.length; i++)   {
-        renderMessages(result.messages[i])
+        messages.push(result.messages[i])
     }
-    
+
+    container = document.createElement('div');
+    container.classList.add('messages-main-container')
+    UI_ELEMENTS.MESSAGES_PAGE.append(container)
+
 }
+
+function checkPosition() {
+
+    if(UI_ELEMENTS.MESSAGES_PAGE.scrollTop <= 0)    {
+        addMessages();
+        UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, 1270)
+    } 
+
+}
+
+function deleteMessages()   {
+    UI_ELEMENTS.MESSAGES_PAGE.querySelector('.messages-main-container').remove();
+}
+
+
 

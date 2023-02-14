@@ -12,6 +12,7 @@ const UI_ELEMENTS = {
     MESSAGE_GET_TEMPLATE: document.querySelector('#get-message-tmp'),
     MESSAGES_PAGE: document.querySelector('.messages-body'),
     MESSAGE_INPUT: document.querySelector('#input-message'),
+    MESSAGE_MAIN_CONTAINER: document.querySelector('.messages-main-container'),
 
     AUTHORIZATION_PAGE: document.querySelector('.authorization-popup-container'),
     AUTHORIZATION_CLOSE_BUTTON: document.querySelector('#authorization-close-button'),
@@ -23,6 +24,12 @@ const UI_ELEMENTS = {
     CONFIRMATION_INPUT_CODE: document.querySelector('#input-code'),
     CONFIRMATION_FORM: document.querySelector('#confirmation-form'),
 
+    GET_POSITION_BUTTON: document.querySelector('#get-position'),
+    ADD_MESSAGES: document.querySelector('#add-messages'),
+    DELETE_MESSAGES: document.querySelector('#delete-messages'),
+
+    TEMPLATE_MESSAGES_CONTAINER: document.querySelector('#messages-main-container'),
+    TEMPLATE_MESSAGES_SCROLL_CONTAINER: document.querySelector('#messages-scroll-container'),
 
 }
 

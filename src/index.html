@@ -21,6 +21,13 @@
                             <button id="settings-button">Settings</button>
                         </div>
 
+                        <div class="get-position">
+                            <button id="get-position">Position</button>
+                        </div>
+
+                        <button id="add-messages">add messages</button>
+                        <button id="delete-messages">delete</button>
+
                         <div class="exit">
                             <button>Exit</button>
                         </div>
@@ -28,6 +35,14 @@
                     </div>
 
                     <div class="messages-body">
+
+                        <template id="messages-main-container">
+                            <div class="messages-main-container"></div>
+                        </template>
+
+                        <template id="messages-scroll-container">
+                            <div class="messages-scroll-container"></div>
+                        </template>
 
                         <template id="send-message-tmp">
                             <div class="message-block">
@@ -55,7 +70,7 @@
                             </div>
                         </template>
 
-                        <div class="message-block">
+                        <!-- <div class="message-block">
                             <div class="message">
                                 <div class="text">
                                     Me: Good morning!
@@ -98,8 +113,7 @@
                                     18:45
                                 </div>
                             </div>
-                        </div>
-    
+                        </div> -->
                     </div>
     
     

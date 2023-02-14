@@ -59,8 +59,8 @@ body, ul    {
     margin-top: 8px;
     padding: 8px;
     overflow-y:scroll;
-    -ms-overflow-style: none; 
-    scrollbar-width: none; 
+    /* -ms-overflow-style: none; 
+    scrollbar-width: none;  */
 }
 
 .messages-body::-webkit-scrollbar {
@@ -228,4 +228,8 @@ body, ul    {
 
 .popup-hide     {
     display: none;
+}
+
+.messages-main-container{
+    height: 437px;
 }
