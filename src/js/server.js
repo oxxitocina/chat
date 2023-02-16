@@ -96,10 +96,25 @@ async function get_messages()   {
     return result;
 }
 
+SERVER_DATA.SOCKET.onmessage = async function(event) { 
+    let user = JSON.parse(event.data);
+    messages.push(user);
+    
+    renderMessagesLast(messages[messages.length-1]);
+    UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, UI_ELEMENTS.MESSAGES_PAGE.scrollHeight);
+
+};
+
+function sendMessage()  {
+    let text = UI_ELEMENTS.MESSAGE_INPUT.value;
+    SERVER_DATA.SOCKET.send(JSON.stringify({text}));
+}
+
 export { SERVER_DATA,
         authorization,
         confirmation,
         get_name,
         set_name,
         get_messages,
+        sendMessage,
 }

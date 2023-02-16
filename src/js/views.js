@@ -5,7 +5,6 @@ const UI_ELEMENTS = {
     SETTINGS_FORM: document.querySelector('#settings-form'),
     SETTINGS_INPUT: document.querySelector('#input-name'),
     SETTINGS_GET_NAME_BUTTON: document.querySelector('#get-name-button'),
-    SETTINGS_GET_CHAT_HISTORY: document.querySelector('#get-chat-history'),
 
     MESSAGE_SEND_FORM: document.querySelector('#message-send-form'),
     MESSAGE_SEND_TEMPLATE: document.querySelector('#send-message-tmp'),
@@ -23,13 +22,6 @@ const UI_ELEMENTS = {
     CONFIRMATION_CLOSE_BUTTON: document.querySelector('#confirmation-close-button'),
     CONFIRMATION_INPUT_CODE: document.querySelector('#input-code'),
     CONFIRMATION_FORM: document.querySelector('#confirmation-form'),
-
-    GET_POSITION_BUTTON: document.querySelector('#get-position'),
-    ADD_MESSAGES: document.querySelector('#add-messages'),
-    DELETE_MESSAGES: document.querySelector('#delete-messages'),
-
-    TEMPLATE_MESSAGES_CONTAINER: document.querySelector('#messages-main-container'),
-    TEMPLATE_MESSAGES_SCROLL_CONTAINER: document.querySelector('#messages-scroll-container'),
 
 }
 

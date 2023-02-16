@@ -1,13 +1,22 @@
 import { UI_ELEMENTS } from "./views.js";
-import { SERVER_DATA,
-        authorization,
-        confirmation,
-        get_name,
-        set_name,
-        get_messages,
-} from "./server.js";
-import { renderMessages, renderMessagesLast } from "./render.js";
+import { renderMessagesLast } from "./render.js";
 
+import { 
+    SERVER_DATA,
+    authorization,
+    confirmation,
+    get_name,
+    set_name,
+    sendMessage,
+} from "./server.js";
+
+import { 
+    show_popup, 
+    close_popup,
+    checkPosition,
+    save_messages,
+    addMessages,        
+} from "./helpers.js";
 
 UI_ELEMENTS.SETTINGS_BTN.addEventListener('click', function()   {
     show_popup(UI_ELEMENTS.SETTINGS_POPUP)
@@ -21,9 +30,7 @@ UI_ELEMENTS.AUTHORIZATION_CLOSE_BUTTON.addEventListener('click', function() {
 UI_ELEMENTS.CONFIRMATION_CLOSE_BUTTON.addEventListener('click', async function()  {
     close_popup(UI_ELEMENTS.CONFIRMATION_PAGE)
     await save_messages();
-    await addMessages();
-    let container = document.querySelector('.messages-main-container');
-    UI_ELEMENTS.MESSAGES_PAGE.append(container)
+    addMessages();
     UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, UI_ELEMENTS.MESSAGES_PAGE.scrollHeight)
 })
 UI_ELEMENTS.MESSAGE_SEND_FORM.addEventListener('submit', function(event)  {
@@ -45,26 +52,9 @@ UI_ELEMENTS.SETTINGS_FORM.addEventListener('submit', function(event) {
 UI_ELEMENTS.SETTINGS_GET_NAME_BUTTON.addEventListener('click', function()   {
     get_name()
 })
-UI_ELEMENTS.SETTINGS_GET_CHAT_HISTORY.addEventListener('click', function()  {
-    save_messages()
-})
-UI_ELEMENTS.GET_POSITION_BUTTON.addEventListener('click', function()    {
-    checkPosition()
-})
-UI_ELEMENTS.ADD_MESSAGES.addEventListener('click', function()   {
-    addMessages();
-})
 UI_ELEMENTS.MESSAGES_PAGE.addEventListener('scroll', function() {
     checkPosition();
 })
-
-function show_popup(page)   {
-   page.classList.remove('popup-hide')
-}
-
-function close_popup(page)    {
-    page.classList.add('popup-hide')
-}
 
 SERVER_DATA.SOCKET.onmessage = async function(event) { 
     let user = JSON.parse(event.data);
@@ -75,43 +65,8 @@ SERVER_DATA.SOCKET.onmessage = async function(event) {
 
 };
 
-function sendMessage()  {
-    let text = UI_ELEMENTS.MESSAGE_INPUT.value;
-    SERVER_DATA.SOCKET.send(JSON.stringify({text}));
-}
-
 const messages = [];
 
-function addMessages()  {
-
-    for(let i = 0; i < 20; i++)   {
-        renderMessages(messages[i])
-    }
-
-    messages.splice(0, 20);
-    
-}
-
-async function save_messages()    {
-    let result = await get_messages();
-
-    messages.length = 0;
-
-    for(let i = 0; i < result.messages.length; i++)   {
-        messages.push(result.messages[i])
-    }
-
-    container = document.createElement('div');
-    container.classList.add('messages-main-container')
-    UI_ELEMENTS.MESSAGES_PAGE.append(container)
-
-}
-
-function checkPosition() {
-    if(UI_ELEMENTS.MESSAGES_PAGE.scrollTop <= 0)    {
-        addMessages();
-        UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, 1270)
-    } 
-}
+export { messages }
 
 

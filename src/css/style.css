@@ -233,3 +233,13 @@ body, ul    {
 .messages-main-container{
     height: 437px;
 }
+
+.settings-form  {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.get-name-button    {
+    margin-top: 20px;
+}
