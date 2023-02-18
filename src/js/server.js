@@ -1,5 +1,7 @@
 import Cookies from 'js-cookie'
 import { UI_ELEMENTS } from "./views.js";
+import { renderMessages } from "./render.js";
+import { messages } from './index.js';
 
 const SERVER_DATA = {
     SERVER_URL: 'https://edu.strada.one/api/user',
@@ -96,19 +98,19 @@ async function get_messages()   {
     return result;
 }
 
-SERVER_DATA.SOCKET.onmessage = async function(event) { 
-    let user = JSON.parse(event.data);
-    messages.push(user);
-    
-    renderMessagesLast(messages[messages.length-1]);
-    UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, UI_ELEMENTS.MESSAGES_PAGE.scrollHeight);
-
-};
-
 function sendMessage()  {
     let text = UI_ELEMENTS.MESSAGE_INPUT.value;
     SERVER_DATA.SOCKET.send(JSON.stringify({text}));
 }
+
+const getNewMessage = SERVER_DATA.SOCKET.onmessage = async function(event) { 
+    let user = JSON.parse(event.data);
+    messages.push(user);
+    
+    renderMessages(messages[messages.length-1], true);
+    UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, UI_ELEMENTS.MESSAGES_PAGE.scrollHeight);
+
+};
 
 export { SERVER_DATA,
         authorization,
@@ -117,4 +119,5 @@ export { SERVER_DATA,
         set_name,
         get_messages,
         sendMessage,
+        getNewMessage,
 }

@@ -12,13 +12,12 @@ function show_popup(page)   {
  }
 
  function addMessages()  {
-
     for(let i = 0; i < 20; i++)   {
         renderMessages(messages[i])
     }
 
     messages.splice(0, 20);
-    
+   
 }
 
 async function save_messages()    {
