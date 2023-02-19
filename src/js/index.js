@@ -1,5 +1,5 @@
 import { UI_ELEMENTS } from "./views.js";
-import { renderMessagesLast } from "./render.js";
+import { renderMessages } from "./render.js";
 
 import { 
     SERVER_DATA,
@@ -60,7 +60,7 @@ SERVER_DATA.SOCKET.onmessage = async function(event) {
     let user = JSON.parse(event.data);
     messages.push(user);
     
-    renderMessagesLast(messages[messages.length-1]);
+    renderMessages(messages[messages.length-1], true);
     UI_ELEMENTS.MESSAGES_PAGE.scrollTo(0, UI_ELEMENTS.MESSAGES_PAGE.scrollHeight);
 
 };
