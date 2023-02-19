@@ -29,7 +29,7 @@ async function save_messages()    {
         messages.push(result.messages[i])
     }
 
-    container = document.createElement('div');
+    let container = document.createElement('div');
     container.classList.add('messages-main-container')
     UI_ELEMENTS.MESSAGES_PAGE.append(container)
 
